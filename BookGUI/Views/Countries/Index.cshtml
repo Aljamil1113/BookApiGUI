@@ -1,0 +1,28 @@
+@model IEnumerable<BookApi.Dtos.CountryDto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div>
+    <h3>
+        @ViewBag.Message
+    </h3>
+    
+</div>
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<br/>
+
+<div>
+    <h2>List of Countries</h2>
+</div>
+<br/>
+<div>
+    @foreach (var item in Model)
+    {
+        <p><strong>@item.Name</strong></p>
+        <a class="btn btn-sm btn-success" asp-controller="Countries" asp-action="Detail" asp-route-countryId="@item.Id">Details</a>
+        <a class="btn btn-sm btn-primary" asp-controller="Countries" asp-action="EditCountry" asp-route-countryId="@item.Id">Edit</a>
+        <a class="btn btn-sm btn-danger" asp-controller="Countries" asp-action="DeleteCountry" asp-route-countryId="@item.Id">Delete</a>
+    }
+</div>

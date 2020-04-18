@@ -1,0 +1,36 @@
+@model BookGUI.ViewModels.CategoryBooksViewModel
+@{
+    ViewData["Title"] = "Detail";
+}
+<p>
+    <h4>@ViewBag.Message</h4>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+</p>
+
+<h3>Category Details</h3>
+
+<div>
+    <p><strong>Category Name:</strong></p> @Model.Category.Name
+
+    <form class="form-group text-center">
+        <a class="btn btn-sm btn-success" asp-controller="Categories" asp-action="Index">Go back</a>
+        <a class="btn btn-sm btn-primary" asp-controller="Categories" asp-action="Edit" asp-route-categoryId="@Model.Category.Id">Edit</a>
+        <a class="btn btn-sm btn-danger" asp-controller="Categories" asp-action="Delete" asp-route-categoryId="@Model.Category.Id">Delete</a>
+    </form>
+</div>
+<br/>
+<h3>@Model.Category.Name Books</h3>
+<h4>@ViewBag.BookMessage</h4>
+<div>
+    @foreach (var item in Model.Books)
+    {
+        <div>
+             <p>
+            <strong>Title:</strong>
+            <span>@item.Title</span>
+            <a class="btn btn-sm btn-success" asp-controller="Books" asp-action="Details" asp-route-categoryId="@item.Id">Book Details</a>
+        </p>
+        </div>
+       
+    }
+</div>
