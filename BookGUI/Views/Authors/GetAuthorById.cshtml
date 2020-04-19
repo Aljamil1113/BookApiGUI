@@ -1,0 +1,40 @@
+@model BookGUI.ViewModels.AuthorBooksCategoriesViewModel
+@{
+    ViewData["Title"] = "GetAuthorById";
+}
+
+<h2>@Model.Author.LastName, @Model.Author.LastName Details</h2>
+
+<div>
+    <h4>@ViewBag.Message</h4>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+</div>
+
+<div>
+    @foreach (var book in Model.BookCategories)
+    {
+        <p><strong>Book Title</strong></p>@book.Key.Title 
+        <h4>@ViewBag.BookMessage</h4>
+        <span>
+            <a class="btn btn-small btn-success" asp-controller="Home" asp-action="GetBookById" asp-route-bookId="@book.Key.Id">Book Details</a>
+            <a class="btn btn-small btn-danger" asp-controller="Home" asp-action="Delete" asp-route-bookId="@book.Key.Id">Delete</a>
+        </span>
+        @foreach (var category in book.Value)
+        {
+        <p><strong>Categories</strong></p> @category.Name
+        <h4>@ViewBag.CategoryMessage</h4>
+        <span>
+           <a class="btn btn-small btn-success" asp-controller="Home" asp-action="GetBookById" asp-route-bookId="@book.Key.Id">Category Details</a>
+            <a class="btn btn-small btn-danger" asp-controller="Home" asp-action="Delete" asp-route-bookId="@book.Key.Id">Delete</a>
+        </span>        
+        }       
+    }  
+</div>
+
+<div>
+      <form class="form-group text-center">
+        <a class="btn btn-small btn-success" asp-controller="Authors" asp-action="Index">Go Back</a>
+        <a class="btn btn-small btn-primary" asp-controller="Authors" asp-action="Edit" asp-route-authorId="@Model.Author.Id">Edit</a>
+        <a class="btn btn-small btn-danger" asp-controller="Authors" asp-action="Delete" asp-route-authorId="@Model.Author.Id">Delete</a>
+    </form>
+</div>

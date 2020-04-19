@@ -39,7 +39,7 @@ namespace BookGUI.Controllers
             {
                 ModelState.AddModelError("", "Error getting a country");
                 ViewBag.Message = $"There was a problem retrieving country id {categoryId}" +
-                $" from the database or no country with id exists."; 
+                $" from the database or no country with id {categoryId} exists."; 
 
                 category = new CategoryDto();
             }

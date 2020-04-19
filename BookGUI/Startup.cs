@@ -19,6 +19,9 @@ namespace BookGUI
             services.AddMvc();
             services.AddScoped<ICountryRepositoryGUI, CountryRepositoryGUI>();
             services.AddScoped<ICategoryRepositoryGUI, CategoryRepositoryGUI>();
+            services.AddScoped<IReviewerRepositoryGUI, ReviewerRepositoryGUI>();
+            services.AddScoped<IReviewRepositoryGUI, ReviewRepositoryGUI>();
+            services.AddScoped<IAuthorRepositoryGUI, AuthorRepositoryGUI>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

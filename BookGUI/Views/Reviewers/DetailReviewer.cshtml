@@ -1,0 +1,58 @@
+@model BookGUI.ViewModels.ReviewerReviewsBooksViewModel;
+@{
+    ViewData["Title"] = "DetailReviewer";
+}
+
+<h2>Reviewer Detail</h2>
+
+<div>
+    <h4>@ViewBag.Message</h4>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+</div>
+
+
+    <div>
+    <p><strong>First Name:</strong></p> @Model.Reviewer.FirstName
+    <p><strong>Last Name:</strong></p> @Model.Reviewer.LastName
+
+    <form class="form-group text-center">
+        <a class="btn btn-sm btn-success" asp-controller="Reviewers" asp-action="Index">Go back</a>
+        <a class="btn btn-sm btn-primary" asp-controller="Reviewers" asp-action="Edit" asp-route-reviewerId="@Model.Reviewer.Id">Edit</a>
+        <a class="btn btn-sm btn-danger" asp-controller="Reviewers" asp-action="Delete" asp-route-reviewerId="@Model.Reviewer.Id">Delete</a>
+    </form>
+</div>
+
+<h3>@Model.Reviewer.LastName Books</h3>
+<h4>@ViewBag.ReviewMessage</h4>
+<div>
+    @foreach (var item in Model.ReviewBook)
+        {
+        <div>
+            <p>
+                <strong>Title:</strong>
+                <span>@item.Value.Title</span>
+                <a class="btn btn-small btn-success" asp-controller="Home" asp-action="GetBookById"
+                   asp-route-bookId="@item.Value.Id">Book Details</a>
+                <a class="btn btn-small btn-danger" asp-controller="Home" asp-action="Delete"
+                   asp-route-bookId="@item.Value.Id">Delete Book</a>
+            </p>
+            <p>
+                <strong>Headline:</strong>
+                <span>@item.Key.HeadLine</span>
+                <a class="btn btn-small btn-success" asp-controller="Reviews" asp-action="GetReviewById"
+                   asp-route-reviewId="@item.Key.Id">Review Details</a>
+                <a class="btn btn-small btn-danger" asp-controller="Reviews" asp-action="Detail"
+                   asp-route-reviewId="@item.Key.Id">Delete Review</a>
+            </p>
+            <p>
+                <strong>Rating:</strong>
+                <span>@item.Key.Rating</span>
+            </p>
+            <p>
+                <strong>Review Text:</strong>
+                <span>@item.Key.ReviewText</span>
+            </p>
+        </div>
+        <br /><br />
+        }
+</div>

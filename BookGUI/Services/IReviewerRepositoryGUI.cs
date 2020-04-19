@@ -5,9 +5,9 @@ namespace BookGUI.Services
 {
     public interface IReviewerRepositoryGUI
     {
-         IEnumerable<ReviewerDto> GetReviewer();
+         IEnumerable<ReviewerDto> GetReviewers();
          ReviewerDto GetReviewer(int reviewerId);
-         IEnumerable<ReviewDto> GetReviewsByReviewer();
+         IEnumerable<ReviewDto> GetReviewsByReviewer(int reviewerId);
          ReviewerDto GetReviewerPerReviews(int reviewId);
     }
 }
