@@ -5,91 +5,91 @@ using BookApi.Dtos;
 
 namespace BookGUI.Services
 {
-    public class AuthorRepositoryGUI : IAuthorRepositoryGUI
+    public class BookRepositoryGUI : IBookRepositoryGUI
     {
-        public IEnumerable<AuthorDto> GetAllAuthorsFromBook(int bookId)
+        public decimal BookRating(int bookId)
         {
-            IEnumerable<AuthorDto> authors = new List<AuthorDto>();
-
+            decimal book = 0;
             using(var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:5000/api/");
 
-                var response = client.GetAsync($"authors/books/{bookId}");
+                var response = client.GetAsync($"books/{bookId}/rating");
                 response.Wait();
 
                 var result = response.Result;
 
                 if(result.IsSuccessStatusCode)
                 {
-                    var readTask = result.Content.ReadAsAsync<IList<AuthorDto>>();
+                    var readTask = result.Content.ReadAsAsync<decimal>();
                     readTask.Wait();
 
-                    authors = readTask.Result;
+                    book = readTask.Result;
                 }
             }
 
-            return authors;
+            return book;
         }
 
-        public AuthorDto GetAuthor(int authorId)
+        public BookDto GetBookById(int bookId)
         {
-            AuthorDto author = new AuthorDto();
+            
+            BookDto book = new BookDto();
             using(var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:5000/api/");
 
-                var response = client.GetAsync($"authors/{authorId}");
+                var response = client.GetAsync($"books/{bookId}");
                 response.Wait();
 
                 var result = response.Result;
 
                 if(result.IsSuccessStatusCode)
                 {
-                    var readTask = result.Content.ReadAsAsync<AuthorDto>();
+                    var readTask = result.Content.ReadAsAsync<BookDto>();
                     readTask.Wait();
 
-                    author = readTask.Result;
+                    book = readTask.Result;
                 }
             }
 
-            return author;
+            return book;
         }
 
-        public IEnumerable<AuthorDto> GetAuthors()
+        public BookDto GetBookByIsbn(string isbn)
         {
-            IEnumerable<AuthorDto> authors = new List<AuthorDto>();
-
+            BookDto book = new BookDto();
             using(var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:5000/api/");
 
-                var response = client.GetAsync("authors");
+                var response = client.GetAsync($"books/ISBN/{isbn}");
                 response.Wait();
 
                 var result = response.Result;
 
                 if(result.IsSuccessStatusCode)
                 {
-                    var readTask = result.Content.ReadAsAsync<IList<AuthorDto>>();
+                    var readTask = result.Content.ReadAsAsync<BookDto>();
                     readTask.Wait();
 
-                    authors = readTask.Result;
+                    book = readTask.Result;
                 }
             }
 
-            return authors;
+            return book;
         }
 
-        public IEnumerable<BookDto> GetBooksFromAuthor(int authorId)
+        public IEnumerable<BookDto> GetBooks()
         {
+            
             IEnumerable<BookDto> books = new List<BookDto>();
 
             using(var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:5000/api/");
 
-                var response = client.GetAsync($"authors/{authorId}/books");
+                var response = client.GetAsync("books");
                 response.Wait();
 
                 var result = response.Result;

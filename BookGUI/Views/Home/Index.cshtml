@@ -1,0 +1,58 @@
+@model IEnumerable<BookGUI.ViewModels.BookAuthorsCategoriesViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>List of Books</h2>
+
+<div>
+    <h4>@ViewBag.Message</h4>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+</div>
+
+<div>
+    <table class="table">
+        <thead>
+            <th>Title</th>
+            <th>Authors</th>
+            <th>ISBN</th>
+            <th>Date Published</th>
+            <th>Categories</th>
+            <th>Rating</th>
+            <th></th>
+        </thead>
+        
+            @foreach (var item in Model)
+            {
+                <tr>
+                <td>@item.Book.Title</td>
+                <td>
+                    @{
+                        foreach (var book in item.Authors)
+                        {
+                            @String.Format("{0}, {1}", book.LastName,  book.FirstName) 
+                            <a class="btn btn-small btn-success" asp-controller="Authors" asp-action="GetAuthorById" asp-route-authorId="@book.Id">
+                                                             View
+                            </a> <br/>
+                        }
+                    }
+                </td>
+                <td>@item.Book.Isbn</td>
+                <td>@String.Format("{0:MMM yyyy}", item.Book.DatePublish)</td>
+                <td>
+                    @{
+                        foreach (var category in item.Categories)
+                        {
+                            @category.Name <a class="btn btn-small btn-success" asp-controller="Categories" asp-action="Detail" asp-route-categoryId="@category.Id">
+                                Category Detail
+                            </a> <br/>
+                        }
+                    }
+                </td>
+                <td>@String.Format("{0:0.##}", item.Rating) stars</td>
+                <td><a class="btn btn-small btn-success" asp-controller="Home" asp-action="GetBookById" asp-route-bookId="@item.Book.Id">Book Details</a></td>
+                </tr>
+            }
+        
+    </table>
+</div>

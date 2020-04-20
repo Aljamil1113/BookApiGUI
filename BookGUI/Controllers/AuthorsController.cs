@@ -14,11 +14,14 @@ namespace BookGUI.Controllers
     {
         IAuthorRepositoryGUI authorRepository;
         ICategoryRepositoryGUI categoryRepository;
+        ICountryRepositoryGUI countryRepository;
 
-        public AuthorsController(IAuthorRepositoryGUI _authorRepository, ICategoryRepositoryGUI _categoryRepository)
+        public AuthorsController(IAuthorRepositoryGUI _authorRepository, ICategoryRepositoryGUI _categoryRepository, 
+        ICountryRepositoryGUI _countryRepository)
         {
             authorRepository = _authorRepository;
             categoryRepository = _categoryRepository;
+            countryRepository = _countryRepository;
         }
 
         public IActionResult Index()
@@ -47,6 +50,17 @@ namespace BookGUI.Controllers
                 author = new AuthorDto();
             }
 
+            var country = countryRepository.GetCountryOfAnAuthor(authorId);
+
+            if(country == null)
+            {
+                ModelState.AddModelError("", "Error getting an author's country");
+                ViewBag.Message = $"There was a problem retrieving country w/ author ID {authorId}" +
+                $" from the database or no country with author Id {authorId} exists."; 
+
+                country = new CountryDto();
+            }
+
             var books = authorRepository.GetBooksFromAuthor(authorId);
 
             if(books.Count() <= 0)
@@ -54,23 +68,18 @@ namespace BookGUI.Controllers
                 ViewBag.BookMessage += $"There are no books with author {author.LastName}, {author.FirstName}";
             }
             
-
-            //IEnumerable <CategoryDto> categories = new List<CategoryDto>();
             IDictionary<BookDto, IEnumerable<CategoryDto>> bookCategories = new Dictionary<BookDto, IEnumerable<CategoryDto>>();
 
             foreach (var book in books)
             {
                 var categories = categoryRepository.GetCategoriesFromBook(book.Id);
-                if(categories.Count() <= 0)
-                {
-                    ViewBag.CategoryMessage += $"There are no categories in {book.Title}.";
-                }
                 bookCategories.Add(book, categories);
             }
   
             AuthorBooksCategoriesViewModel authorBooksCategories = new AuthorBooksCategoriesViewModel()
             {
                 Author = author,
+                Country = country,
                 BookCategories = bookCategories
             };
 

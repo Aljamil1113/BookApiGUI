@@ -6,6 +6,7 @@ namespace BookGUI.ViewModels
     public class AuthorBooksCategoriesViewModel
     {
         public AuthorDto Author { get; set; }
+        public CountryDto Country { get; set; }
         public IDictionary<BookDto, IEnumerable<CategoryDto>> BookCategories { get; set; }
     }
 }

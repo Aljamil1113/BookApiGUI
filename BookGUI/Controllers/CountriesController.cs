@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BookApi.Dtos;
 using BookGUI.Services;
+using BookGUI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookGUI.Controllers
@@ -41,7 +42,21 @@ namespace BookGUI.Controllers
                 country = new CountryDto();
             }
 
-            return View(country);
+            var authors = countryRepository.GetAuthorFromCountry(countryId);
+
+            if(authors.Count() <= 0)
+            {
+                ViewBag.AuthorMessage = $"There was a problem retrieving authors in country id {countryId}" +
+                $" from the database or no authors with country id exists."; 
+            }
+
+            CountryAuthorsViewModel countryAuthors = new CountryAuthorsViewModel()
+            {
+                Country = country,
+                Authors = authors
+            };
+
+            return View(countryAuthors);
         }
     }
 }

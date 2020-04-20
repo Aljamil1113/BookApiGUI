@@ -1,4 +1,4 @@
-@model BookApi.Dtos.CountryDto
+@model BookGUI.ViewModels.CountryAuthorsViewModel
 @{
     ViewData["Title"] = "Detail";
 }
@@ -11,11 +11,22 @@
     <br/>
     <div>
         <p>
-            <strong>Country Name:</strong> @Model.Name
-        <form class="form-group text-center">
-            <a class="btn btn-sm btn-primary" asp-controller="Countries" asp-action="EditCountry" asp-route-countryId="@Model.Id">Edit</a>
-            <a class="btn btn-sm btn-danger" asp-controller="Countries" asp-action="DeleteCountry" asp-route-countryId="@Model.Id">Delete</a>
-        </form>
+            <strong>Country Name:</strong> @Model.Country.Name      
         </p>
     </div>
+    <br/>
+    <div>
+        <p><strong>List of Author's</strong></p>
+        @foreach (var item in Model.Authors)
+        {
+            <p>@item.LastName, @item.FirstName</p>
+            <a class="btn btn-small btn-success" asp-controller="Authors" asp-action="GetAuthorById" asp-route-authorId="@item.Id">Author Details</a>
+            <a class="btn btn-small btn-danger" asp-controller="Authors" asp-action="Delete" asp-route-authorId="@item.Id">Delete</a>
+        }       
+    </div>
+    <form class="form-group text-center">
+            <a class="btn btn-sm btn-success" asp-controller="Countries" asp-action="Index">Go Back</a>
+            <a class="btn btn-sm btn-primary" asp-controller="Countries" asp-action="EditCountry" asp-route-countryId="@Model.Country.Id">Edit</a>
+            <a class="btn btn-sm btn-danger" asp-controller="Countries" asp-action="DeleteCountry" asp-route-countryId="@Model.Country.Id">Delete</a>
+        </form>
 </div>
