@@ -22,7 +22,7 @@
     {
         <p><strong>@item.Name</strong></p>
         <a class="btn btn-sm btn-success" asp-controller="Countries" asp-action="Detail" asp-route-countryId="@item.Id">Details</a>
-        <a class="btn btn-sm btn-primary" asp-controller="Countries" asp-action="EditCountry" asp-route-countryId="@item.Id">Edit</a>
-        <a class="btn btn-sm btn-danger" asp-controller="Countries" asp-action="DeleteCountry" asp-route-countryId="@item.Id">Delete</a>
+        <a class="btn btn-sm btn-primary" asp-controller="Countries" asp-action="Edit" asp-route-countryId="@item.Id">Edit</a>
+        <a class="btn btn-sm btn-danger" asp-controller="Countries" asp-action="Delete" asp-route-countryId="@item.Id">Delete</a>
     }
 </div>

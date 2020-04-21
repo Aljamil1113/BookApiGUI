@@ -1,0 +1,21 @@
+@model BookApi.Dtos.CountryDto
+@{
+    ViewData["Title"] = "Edit";
+}
+<div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+<h2>Edit Country</h2>
+
+<form asp-controller="Countries" asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id"/>
+    <div class="form-group">
+        <div>
+            <label asp-for="Name">Country Name:</label>
+        </div>      
+        <div>
+            <input class="form-control" asp-for="Name" />
+        </div>
+         <br/>
+        <input type="submit" class="btn btn-sm btn-primary" value="Save" />
+    </div>
+</form>
+<a asp-controller="Countries" asp-action="Index" asp-route-countryId="@Model.Id" class="btn btn-sm btn-primary" >Cancel</a>

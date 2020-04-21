@@ -26,7 +26,7 @@
     </div>
     <form class="form-group text-center">
             <a class="btn btn-sm btn-success" asp-controller="Countries" asp-action="Index">Go Back</a>
-            <a class="btn btn-sm btn-primary" asp-controller="Countries" asp-action="EditCountry" asp-route-countryId="@Model.Country.Id">Edit</a>
-            <a class="btn btn-sm btn-danger" asp-controller="Countries" asp-action="DeleteCountry" asp-route-countryId="@Model.Country.Id">Delete</a>
+            <a class="btn btn-sm btn-primary" asp-controller="Countries" asp-action="Edit" asp-route-countryId="@Model.Country.Id">Edit</a>
+            <a class="btn btn-sm btn-danger" asp-controller="Countries" asp-action="Delete" asp-route-countryId="@Model.Country.Id">Delete</a>
         </form>
 </div>
