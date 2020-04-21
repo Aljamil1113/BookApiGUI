@@ -24,7 +24,7 @@
     @{
         foreach (var ac in Model.AuthorsCountry)
         {
-            @String.Format("{0, 1}", ac.Key.LastName, ac.Key.FirstName) <a class="btn btn-small btn-success" asp-controller="Authors" asp-action="GetAuthorById" asp-route-authorId="@ac.Key.Id">
+            @String.Format("{0}, {1}", ac.Key.LastName, ac.Key.FirstName) <a class="btn btn-small btn-success" asp-controller="Authors" asp-action="GetAuthorById" asp-route-authorId="@ac.Key.Id">
                                                                         View</a> <br/>
             <span>Country:</span> @ac.Value.Name <a class="btn btn-small btn-success" asp-controller="Countries" asp-action="Detail" asp-route-countryId="@ac.Value.Id">
                                                              View </a> <br/>
@@ -39,6 +39,8 @@
         <a class="btn btn-small btn-success" asp-controller="Home" asp-action="Index">Go Back</a>
         <a class="btn btn-small btn-primary" asp-controller="Home" asp-action="Edit" asp-route-bookId="@Model.Book.Id">Edit</a>
         <a class="btn btn-small btn-danger" asp-controller="Home" asp-action="Delete" asp-route-bookId="@Model.Book.Id">Delete</a>
+        <a class="btn btn-small btn-info" asp-controller="Reviews" asp-action="CreateReview" 
+        asp-route-bookId="@Model.Book.Id" asp-route-Title="@Model.Book.Title">Write Review</a>
     </form>
 </div>
 <br/><br/>

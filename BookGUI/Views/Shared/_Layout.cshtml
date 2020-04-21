@@ -8,7 +8,12 @@
     </head>
 
     <body>
-        @RenderBody()
+        @await Html.PartialAsync("_Navigation")
+        <div class="container body-content main">
+            @RenderBody()
+            @await Html.PartialAsync("_Footer")
+        </div>
+       
     </body>
 
     <footer>
