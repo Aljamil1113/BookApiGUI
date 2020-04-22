@@ -1,0 +1,21 @@
+@model BookApi.Dtos.CategoryDto
+@{
+    ViewData["Title"] = "Edit";
+}
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<h2>Edit Category</h2>
+
+<form asp-controller="Categories" asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id"/>
+    <div class="form-group">
+        <div>
+            <label asp-for="Name">Category Name:</label>
+        </div>      
+        <div>
+            <input class="form-control" asp-for="Name" />
+        </div>
+         <br/>
+        <input type="submit" class="btn btn-sm btn-primary" value="Save" />
+    </div>
+</form>
+<a asp-controller="Categories" asp-action="Index"  class="btn btn-sm btn-primary" >Cancel</a>
