@@ -30,7 +30,8 @@
 
     <form class="form-group text-center">
         <a class="btn btn-sm btn-success" asp-controller="Reviews" asp-action="Index">Go back</a>
-        <a class="btn btn-sm btn-primary" asp-controller="Reviews" asp-action="Edit" asp-route-reviewId="@Model.Review.Id">Edit</a>
+        <a class="btn btn-sm btn-primary" asp-controller="Reviews" asp-action="Edit" asp-route-reviewId="@Model.Review.Id"
+        asp-route-reviewerId="@Model.Reviewer.Id" asp-route-bookId="@Model.Book.Id">Edit</a>
         <a class="btn btn-sm btn-danger" asp-controller="Reviews" asp-action="Delete" asp-route-reviewId="@Model.Review.Id">Delete</a>
     </form>
 </div>

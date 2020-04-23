@@ -52,8 +52,8 @@
         <span>@rr.Key.HeadLine <a class="btn btn-small btn-success" asp-controller="Reviews" asp-action="GetReviewById" asp-route-reviewId="@rr.Key.Id">
                                                                         View</a></span></p>
         <p><strong>Reviewer:</strong>
-        <span> @String.Format("{0, 1}", rr.Value.LastName, rr.Value.FirstName) <a class="btn btn-small btn-success" asp-controller="Reviewers" 
-                                                    asp-action="GetReviewerById" asp-route-countryId="@rr.Value.Id">View </a></span></p>
+        <span> @String.Format("{0}, {1}", rr.Value.LastName, rr.Value.FirstName) <a class="btn btn-small btn-success" asp-controller="Reviewers" 
+                                                    asp-action="DetailReviewer" asp-route-reviewerId="@rr.Value.Id">View </a></span></p>
         <p><strong>Rating:</strong>
             <span>@rr.Key.Rating</span>
         </p>

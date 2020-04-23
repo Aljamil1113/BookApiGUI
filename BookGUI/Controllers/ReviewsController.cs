@@ -119,7 +119,7 @@ namespace BookGUI.Controllers
                     Title = bookDto.Title,
                 };
 
-                client.BaseAddress = new Uri("http://localhost:5000/api");
+                client.BaseAddress = new Uri("http://localhost:5000/api/");
                 var responseTask = client.PostAsJsonAsync("reviews", review);
                 responseTask.Wait();
 
@@ -139,6 +139,198 @@ namespace BookGUI.Controllers
                 ViewBag.BookId = bookId;
                 ViewBag.BookTitle = bookDto == null ? "" : bookDto.Title; 
             }
+
+            return View(review);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int bookId, int reviewId, int reviewerId)
+        {
+            var reviewDto = reviewRepository.GetReview(reviewId);
+            var reviewerDto = reviewerRepository.GetReviewerPerReviews(reviewId);
+            var bookDto = bookRepository.GetBookById(bookId);
+
+            Review review = null;
+
+            if(reviewDto == null || reviewerDto == null || bookDto == null)
+            {
+                ModelState.AddModelError("", "Invalid book, reviewer or review. Cannot update review!");
+                review = new Review();
+            }
+            else
+            {
+                review = new Review
+                {
+                    Id = reviewDto.Id,
+                    HeadLine = reviewDto.HeadLine,
+                    ReviewText = reviewDto.ReviewText,
+                    Rating = reviewDto.Rating,
+
+                    Reviewer = new Reviewer
+                    {
+                        Id = reviewerDto.Id,
+                        FirstName = reviewerDto.FirstName,
+                        LastName = reviewerDto.LastName
+                    },
+
+                    Book = new Book
+                    {
+                        Id = bookDto.Id,
+                        Title = bookDto.Title,
+                        Isbn = bookDto.Isbn,
+                        DatePublish = bookDto.DatePublish
+                    }                   
+                };
+            }
+
+            return View(review);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(int reviewerId, Review reviewToUpdate)
+        {
+            var reviewer = reviewerRepository.GetReviewer(reviewerId);
+            var book = reviewRepository.GetBookFromReview(reviewToUpdate.Id);
+
+            if(reviewToUpdate == null || reviewer == null || book == null)
+            {
+                ModelState.AddModelError("","Invalid book, reviewer or review. Cannot update review!");
+                reviewToUpdate = new Review();
+            }
+            else
+            {
+                reviewToUpdate.Reviewer = new Reviewer
+                {
+                    Id = reviewer.Id,
+                    FirstName = reviewer.FirstName,
+                    LastName = reviewer.LastName
+                };
+                reviewToUpdate.Book = new Book 
+                {
+                    Id = book.Id,
+                    Title = book.Title,
+                    Isbn = book.Isbn,
+                    DatePublish = book.DatePublish
+                };
+
+                using(var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("http://localhost:5000/api/");
+                    var responseTask = client.PutAsJsonAsync($"reviews/{reviewToUpdate.Id}", reviewToUpdate);
+                    responseTask.Wait();
+
+                    var result = responseTask.Result;
+
+                    if(result.IsSuccessStatusCode)
+                    {
+                        TempData["SuccessMessage"] = "Review updated";
+                        return RedirectToAction("GetReviewById", new {reviewId = reviewToUpdate.Id});
+                    }
+
+                    ModelState.AddModelError("", "Unexpected error. Review not updated");
+                }
+            }
+            return View(reviewToUpdate);
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int reviewId)
+        {
+            var reviewDto = reviewRepository.GetReview(reviewId);
+            var reviewerDto = reviewerRepository.GetReviewerPerReviews(reviewId);
+            var bookDto = reviewRepository.GetBookFromReview(reviewId);
+
+            Review review = null;
+            if(reviewDto == null || reviewerDto == null || bookDto == null)
+            {
+                ModelState.AddModelError("", "Some kind of error gettint review, reviewer or book");
+                review = new Review();
+            }
+
+            else
+            {
+                review = new Review
+                {
+                    Id = reviewDto.Id,
+                    HeadLine = reviewDto.HeadLine,
+                    ReviewText = reviewDto.ReviewText,
+                    Rating = reviewDto.Rating,
+
+                    Reviewer = new Reviewer
+                    {
+                        Id = reviewerDto.Id,
+                        FirstName = reviewerDto.FirstName,
+                        LastName = reviewerDto.LastName
+                    },
+                    Book = new Book
+                    {
+                        Id = bookDto.Id,
+                        Isbn = bookDto.Isbn,
+                        Title = bookDto.Title,
+                        DatePublish = bookDto.DatePublish
+                    }
+                };
+            }
+
+            return View(review);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteReviewPost(int reviewId)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:5000/api/");
+                var responseTask = client.DeleteAsync($"reviews/{reviewId}");
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+
+                if(result.IsSuccessStatusCode)
+                {
+                    TempData["SuccessMessage"] = "Review was deleted";
+                    return RedirectToAction("Index");
+                }
+
+                ModelState.AddModelError("","Some kind of error. Review was not deleted!");
+            }
+
+            var reviewDto = reviewRepository.GetReview(reviewId);
+            var reviewerDto = reviewerRepository.GetReviewerPerReviews(reviewId);
+            var bookDto = reviewRepository.GetBookFromReview(reviewId);
+
+            Review review = null;
+            if(reviewDto == null || reviewerDto == null || bookDto == null)
+            {
+                ModelState.AddModelError("", "Some kind of error gettint review, reviewer or book");
+                review = new Review();
+            }
+
+            else
+            {
+                review = new Review
+                {
+                    Id = reviewDto.Id,
+                    HeadLine = reviewDto.HeadLine,
+                    ReviewText = reviewDto.ReviewText,
+                    Rating = reviewDto.Rating,
+
+                    Reviewer = new Reviewer
+                    {
+                        Id = reviewerDto.Id,
+                        FirstName = reviewerDto.FirstName,
+                        LastName = reviewerDto.LastName
+                    },
+                    Book = new Book
+                    {
+                        Id = bookDto.Id,
+                        Isbn = bookDto.Isbn,
+                        Title = bookDto.Title,
+                        DatePublish = bookDto.DatePublish
+                    }
+                };
+            }
+
 
             return View(review);
         }

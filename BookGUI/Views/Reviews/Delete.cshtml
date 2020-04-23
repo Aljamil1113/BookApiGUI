@@ -1,0 +1,26 @@
+@model BookApi.Model.Review
+@{
+    ViewData["Title"] = "Delete";
+}
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form asp-asp-controller="Reviews" asp-action="Delete" asp-route-reviewId="@Model.Id" method="post">
+    <div>
+    <h2 class="text-danger">Do you want to delete Review ?</h2>
+    <br/>
+<div>
+    <p><strong>Reviewer: </strong>
+    <span>
+         @Model.Reviewer.LastName, @Model.Reviewer.FirstName
+    </span></p>     
+    <p><strong>Book Title: </strong>
+    <span>
+         @Model.Book.Title
+    </span> </p> 
+    <p><strong>Headline: </strong> <span> @Model.HeadLine</span> </p>
+    <p><strong>Rating: </strong>  <span>@Model.Rating</span> </p>
+    <p><strong>Review: </strong>  <span>@Model.ReviewText</span></p>
+</div>
+<input type="submit" value="Delete" class="btn btn-sm btn-danger"/>
+</form>
+<a class="btn btn-sm btn-primary" asp-controller="Reviews" asp-action="GetReviewById" asp-route-reviewId="@Model.Id">Cancel</a>
+</div>
