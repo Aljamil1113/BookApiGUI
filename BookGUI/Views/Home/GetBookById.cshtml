@@ -40,7 +40,7 @@
         <a class="btn btn-small btn-primary" asp-controller="Home" asp-action="Edit" asp-route-bookId="@Model.Book.Id">Edit</a>
         <a class="btn btn-small btn-danger" asp-controller="Home" asp-action="Delete" asp-route-bookId="@Model.Book.Id">Delete</a>
         <a class="btn btn-small btn-info" asp-controller="Reviews" asp-action="CreateReview" 
-        asp-route-bookId="@Model.Book.Id" asp-route-Title="@Model.Book.Title">Write Review</a>
+        asp-route-bookId="@Model.Book.Id" asp-route-bookTitle="@Model.Book.Title">Write Review</a>
     </form>
 </div>
 <br/><br/>

@@ -1,0 +1,5 @@
+@model BookGUI.Models.ReviewerSelectList
+
+<select asp-for="ReviewerId" asp-items="@Model.ReviewersList" class="form-control">
+    <option value="">Select Reviewer</option>
+</select>
