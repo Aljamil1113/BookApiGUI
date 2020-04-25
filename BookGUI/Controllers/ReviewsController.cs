@@ -223,7 +223,7 @@ namespace BookGUI.Controllers
 
                     if(result.IsSuccessStatusCode)
                     {
-                        TempData["SuccessMessage"] = "Review updated";
+                        ViewData["SuccessMessage"] = "Review updated";
                         return RedirectToAction("GetReviewById", new {reviewId = reviewToUpdate.Id});
                     }
 

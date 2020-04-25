@@ -1,0 +1,41 @@
+@model BookApi.Model.Author
+@{
+    ViewData["Title"] = "CreateAuthor";
+}
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<h2>Add New Author</h2>
+
+<form asp-controller="Authors" asp-action="CreateAuthor" method="post">
+    <div class="form-group">
+        <div class="row">
+            <div class="col-2">
+                <label asp-for="FirstName">First Name:</label>
+            </div>
+            <div class="col-3">
+                <input type="text" asp-for="FirstName" class="form-control" />
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-2">
+                <label asp-for="LastName">Last Name:</label>
+            </div>
+            <div class="col-3">
+                <input type="text" asp-for="LastName" class="form-control" />
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-2">
+                <label asp-for="Country">Country:</label>
+            </div>
+            <div class="col-3">
+                @await Component.InvokeAsync("CountryList")
+            </div>
+        </div>
+        <br/>
+        <input type="submit" class="btn btn-sm btn-primary" value="Create">
+    </div>
+</form>
+<a asp-controller="Home" asp-action="Index" class="btn btn-sm btn-primary" >Cancel</a>

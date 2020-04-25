@@ -15,7 +15,7 @@
     {
         <p><strong>@author.LastName, @author.FirstName </strong></p>
         <a class="btn btn-small btn-success" asp-controller="Authors" asp-action="GetAuthorById" asp-route-authorId="@author.Id">Author Details</a>
-        <a class="btn btn-small btn-primary" asp-controller="Authors" asp-action="Edit" asp-route-authorId="@author.Id">Edit</a>
+        <a class="btn btn-small btn-primary" asp-controller="Authors" asp-action="Edit" asp-route-authorId="@author.Id" asp-route-countryId="@author.Id">Edit</a>
         <a class="btn btn-small btn-danger" asp-controller="Authors" asp-action="Delete" asp-route-authorId="@author.Id">Delete</a>
     }
 </div>
