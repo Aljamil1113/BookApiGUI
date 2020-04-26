@@ -1,0 +1,61 @@
+@model BookGUI.ViewModels.CreateUpdateBookViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<h2>Edit @Model.Book.Title</h2>
+<form asp-controller="Home" asp-action="Edit" method="post">
+    <input type="hidden" asp-for="@Model.Book.Id"/>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-sm-3">
+                <label asp-for="Book.Title"><strong>Title:</strong></label>
+            </div>          
+             <div class="col-sm-3">
+                    <input asp-for="Book.Title" class="form-control" />
+             </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-sm-3">
+                <label asp-for="Book.Isbn"><strong>Isbn:</strong></label>
+            </div>          
+             <div class="col-sm-3">
+                    <input asp-for="Book.Isbn" class="form-control" />
+             </div>
+        </div>
+         <br/>
+        <div class="row">
+            <div class="col-sm-3">
+                <label asp-for="Book.DatePublish"><strong>Date Publish:</strong></label>
+            </div>          
+             <div class="col-sm-3">
+                    <input type="date" asp-for="Book.DatePublish" class="form-control" />
+             </div>
+        </div>
+         <br/>
+        <div class="row">
+            <div class="col-sm-3">
+                <label asp-for="AuthorSelectListItems"><strong>Authors:</strong></label>
+            </div>          
+             <div class="col-sm-3">
+                   <select asp-for="AuthorIds" asp-items="@Model.AuthorSelectListItems" multiple class="form-control"
+                   style="min-height:200px;"></select>
+             </div>
+        </div>
+         <br/>
+        <div class="row">
+            <div class="col-sm-3">
+                <label asp-for="CategorySelectListItems"><strong>Categories:</strong></label>
+            </div>          
+             <div class="col-sm-3">
+                   <select asp-for="CategoryIds" asp-items="@Model.CategorySelectListItems" multiple class="form-control"
+                   style="min-height:200px;"></select>
+             </div>
+        </div>
+        <br/>
+        <input type="submit" class="btn btn-sm btn-primary" value="Edit" />
+    </div>
+    <a asp-asp-controller="Home" asp-action="Index" class="btn btn-sm btn-primary">Cancel</a>
+</form>

@@ -1,0 +1,23 @@
+@model BookApi.Dtos.BookDto
+@{
+    ViewData["Title"] = "Delete";
+}
+<h2 class="text-danger">Delete @Model.Title ?</h2>
+<h4 class="text-danger">NOTE: All Reviews for @Model.Title will be deleted, too!</h4>
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<form asp-controller="Home" asp-action="Delete" asp-route-bookId="@Model.Id"
+asp-route-bookTitle="@Model.Title" method="post">
+<div>
+    <p><strong>Book Title:</strong>
+    <span>@Model.Title</span></p>
+    <p><strong>ISBN:</strong>
+    <span>@Model.Isbn</span></p>
+    <p><strong>Title:</strong>
+    <span>@Model.Title</span></p>
+    <p><strong>Date Published:</strong>
+    <span>@Model.DatePublish</span></p>
+    <input type="submit" value="Delete Book" class="btn btn-sm btn-danger" />
+</div>
+</form>
+<a asp-controller="Home" asp-action="GetBookById" asp-route-bookId="@Model.Id" class="btn btn-sm btn-primary">Cancel</a>
